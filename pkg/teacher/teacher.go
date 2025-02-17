@@ -22,6 +22,9 @@ func (t *Teacher) Say(message string) {
 func (t *Teacher) SayAskingQuestion(q *question.Question) {
 	t.Say(q.QuestionString())
 }
+func (t *Teacher) SayResponseToGuessAnswer(q *question.Question, s *student.Student) {
+	t.Say(t.RespondAnswer(q, s))
+}
 
 func (t *Teacher) RespondAnswer(q *question.Question, student *student.Student) string {
 	temp := ""
@@ -38,7 +41,7 @@ func (t *Teacher) RespondAnswer(q *question.Question, student *student.Student) 
 	}
 }
 
-func (t *Teacher) SayNoAnswer(q *question.Question) {
+func (t *Teacher) SayResponseToNoCorrectAnswer(q *question.Question) {
 	if len(q.Name) > 0 {
 		t.Say(fmt.Sprintf("%s: Boooo~ Answer is %s.", q.Name, question.ConvertFloatToString(q.GetAnswer())))
 	} else {

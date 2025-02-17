@@ -46,9 +46,9 @@ func main() {
 		time.Sleep(time.Duration(rand.Intn(3)) * time.Second)
 
 		raisingHandStudent.LookupQuestion(q, true)
-		raisingHandStudent.SayAnswer(q)
+		raisingHandStudent.SayGuessAnswer(q)
 		isCorrect := q.IsCorrect(raisingHandStudent.GuessAnswer(q))
-		t.Say(t.RespondAnswer(q, raisingHandStudent))
+		t.SayResponseToGuessAnswer(q, raisingHandStudent)
 		if isCorrect {
 			for i, s := range students {
 				if i == selectedStudentIdx {

@@ -12,6 +12,14 @@ import (
 	"time"
 )
 
+func generateQuestion(name string) (*question.Question, error) {
+	a := rand.Int31n(100)
+	b := rand.Int31n(100)
+	operations := []string{"+", "-", "*", "/"}
+	operation := operations[rand.Intn(len(operations))]
+	return question.NewQuestion(name, a, b, operation)
+}
+
 func main() {
 	t := teacher.NewTeacher()
 	studentA := student.NewStudent("A")
@@ -30,19 +38,14 @@ func main() {
 	questionCount := 1
 	wg := sync.WaitGroup{}
 	for questionCount < 10 {
-
-		a := rand.Int31n(100)
-		b := rand.Int31n(100)
-		operations := []string{"+", "-", "*", "/"}
-		operation := operations[rand.Intn(len(operations))]
-		q, err := question.NewQuestion(fmt.Sprintf("Q%d", questionCount), a, b, operation)
+		q, err := generateQuestion(fmt.Sprintf("Q%d", questionCount))
 		if err != nil {
 			if errors.Is(err, question.InvalidInputDivisionBy0) {
 				continue
 			}
 			log.Fatalln(err)
 		}
-		t.Say(q.QuestionString())
+		t.SayAskingQuestion(q)
 
 		wg.Add(1)
 		go func(q *question.Question) {
@@ -62,9 +65,9 @@ func main() {
 				answeredStudentMap[raisingHandStudent] = true
 
 				raisingHandStudent.LookupQuestion(q, false)
-				raisingHandStudent.SayAnswer(q)
+				raisingHandStudent.SayGuessAnswer(q)
 				isCorrect := q.IsCorrect(raisingHandStudent.GuessAnswer(q))
-				t.Say(t.RespondAnswer(q, raisingHandStudent))
+				t.SayResponseToGuessAnswer(q, raisingHandStudent)
 				if isCorrect {
 					noCorrectAnswer = false
 					for i, s := range students {
@@ -77,7 +80,7 @@ func main() {
 				}
 			}
 			if noCorrectAnswer {
-				t.SayNoAnswer(q)
+				t.SayResponseToNoCorrectAnswer(q)
 			}
 		}(q)
 		questionCount++

@@ -25,14 +25,14 @@ func (s *Student) Say(message string) {
 	fmt.Printf("Student %s: %s\n", s.Name, message)
 }
 
-func (s *Student) SayAnswer(q *question.Question) {
+func (s *Student) SayGuessAnswer(q *question.Question) {
 	s.Say(q.GuessedAnswerString(s.questionMap[q]))
 }
 
 func (s *Student) LookupQuestion(q *question.Question, tooEasy bool) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
-	if tooEasy || rand.Intn(2) == 1 {
+	if tooEasy || rand.Intn(3) == 1 {
 		s.questionMap[q] = q.GetAnswer()
 	} else {
 		s.questionMap[q] = float64(rand.Int31n(100))
