@@ -3,9 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
-	"graid-tech-assignment/pkg/question"
-	"graid-tech-assignment/pkg/student"
-	"graid-tech-assignment/pkg/teacher"
+	"graid-tech-assignment/pkg/task1/question"
+	"graid-tech-assignment/pkg/task1/student"
+	"graid-tech-assignment/pkg/task1/teacher"
 	"log"
 	"math/rand"
 	"time"

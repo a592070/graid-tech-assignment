@@ -2,8 +2,8 @@ package teacher
 
 import (
 	"fmt"
-	"graid-tech-assignment/pkg/question"
-	"graid-tech-assignment/pkg/student"
+	"graid-tech-assignment/pkg/task1/question"
+	"graid-tech-assignment/pkg/task1/student"
 )
 
 type Teacher struct {

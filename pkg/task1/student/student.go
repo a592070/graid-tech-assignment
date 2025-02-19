@@ -2,7 +2,7 @@ package student
 
 import (
 	"fmt"
-	"graid-tech-assignment/pkg/question"
+	"graid-tech-assignment/pkg/task1/question"
 	"math/rand"
 	"sync"
 )
